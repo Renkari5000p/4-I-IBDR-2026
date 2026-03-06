@@ -1,0 +1,54 @@
+/*gallardo ledesma carlos  
+Implementacion de una base de datos en un sistema de informacion
+2026/03/04 4-I
+profesor,Juan Antonio Ortega Sandoval
+Nombre de la practica
+*/
+
+CREATE TABLE departamentos (
+  id int NOT NULL,
+  name varchar(25) NOT NULL,
+  location date NOT NULL,
+  PRIMARY KEY (id, name)
+);
+
+ 
+
+
+
+  
+-- Crear una tabla llamaba "empleados" con las columnas  id, nombre, edad, and salario.
+CREATE TABLE empleados (
+  id int NOT NULL,
+  name varchar(25) NOT NULL,
+  edad tinyint NOT NULL,
+  salario float not null,
+  PRIMARY KEY (id, name)
+);
+-- Insertar 5 registros en la tabla "emplados".
+
+INSERT INTO empleados (id,name,edad,salario, departamentos)
+VALUES
+	(1, 'carlos',13,20000.00,'lider supremo'),
+	(2, 'esau',45,20.00, 'mano ariiba'),
+	(3, 'alejandro',29, 98.00, 'mano abajo'),
+	(4, 'alan',17, 98.00, 'striper'),
+	(5, 'juan',80, 67.00, 'maestro');
+-- Agregar una nueva columna "departamento" a la tabla "empleados".
+ALTER TABLE empleados ADD COLUMN departamentos varchar(25) NOT NULL ;
+-- Cambiar el tipo de dato de la columna "salario" a Integer.
+ALTER TABLE empleados MODIFY COLUMN salario int(30) NOT null;
+-- Eliminar la columna "departamento de la tabla "empleados".
+ALTER TABLE empleados DROP  COLUMN departamentos varchar(25) NOT NULL ;
+-- Eliminar la tabla "departamentos" permanentemente.
+DROP TABLE departamentos ;
+-- Eliminar todos los registros de la tabla "empleados" pero mantener la tabla.
+TRUNCATE TABLE empleados;
+-- Renombrar la tabla "empleados" a "staff".
+RENAME TABLE empleados  TO staff;
+-- Definir 0 como valor predeterminado en la comlumna "salario".
+ALTER TABLE empleados MODIFY COLUMN salario int(30) default (0);
+-- Crear un nuevo esquema llamado "rh_db".
+CREATE SCHEMA "rh_db";
+-- Mover la tabla "empleados" al esquema "rh_db".
+RENAMe TABLE  empleados to rh_db.empleados;

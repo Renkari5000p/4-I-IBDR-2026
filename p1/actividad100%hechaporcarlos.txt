@@ -1,0 +1,59 @@
+DESC detalle_horarios;
+
+DESC horarios;
+
+DESC plantilla_detalle_horarios;
+
+
+
+SELECT horario_id, hora_salida, hora_entrada, codigo_incapacidad
+
+FROM defaultdb.detalle_horarios;
+
+
+
+SELECT horario_id, plantilla_id
+
+FROM defaultdb.horarios;
+
+
+
+SELECT plantilla_id, dia, codigo_incapacidad, turno
+
+FROM defaultdb.plantilla_detalle_horarios;
+
+
+
+INSERT INTO defaultdb.detalle_horarios
+
+(horario_id, hora_salida, hora_entrada, codigo_incapacidad)
+
+VALUES(0, '2026-02-18 09:00:00', '2026-02-18 17:00:00', '0');
+
+
+
+CREATE TABLE usuarios (
+  id int NOT NULL,
+  nombres varchar(25) NOT NULL,
+  apellidos varchar(25) DEFAULT NULL,
+  departamento varchar(25) DEFAULT NULL,
+  PRIMARY KEY (id, nombres)
+
+);
+
+SELECT id, nombre, apellido, departamento
+FROM defaultdb.usuarios;
+
+INSERT INTO defaultdb.usuarios
+(id, nombre, apellido, departamento)
+VALUES
+(0, 'joel alejandro', 'sandoval camacho', 'informatico'),
+(1, 'Job Esau', 'Torres Jimenez', 'programador'),
+(2, 'alan dwii', 'angeles hernandes', 'especialista en autos'),
+(3, 'rodrigo', 'hernades hernandes', 'actor n'),
+(4, 'juan antonio', 'deidad', 'maestro'),
+(5, 'carlos', 'gallardo ledesma', 'rey'),
+(6, 'jonatan', 'rodrigez hortega', 'ajedrez'),
+(7, 'rodrigo juan', 'herrera ramos', 'limpieza'),
+(8, 'diego yerai', 'diego yerai', 'limpieza'),
+(9, 'joel alejandro', 'Torres Jimenez', 'limpieza');
