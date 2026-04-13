@@ -1,31 +1,31 @@
-CREATE TABLE procesos (
-flujo varchar(50),
-paso int,
-estado varchar(20)
-primary key (flujo, paso, estado)
+create table casos_de_prueba(
+id int auto_increment primary key,
+caso varchar(10) not NULL 
 );
 
-insert into procesos(flujo, paso , estado)
-values
-('Alpha',1, 'Error'),
-('Alpha' ,2, 'Finalizado'),
-('Alpha', 3, 'Corriend'),
-('Bravo', 1, 'Finalizado'),
-('Bravo', 2, 'Finalizado'),
-('Charlie' ,1, 'Corriendo'),
-('Charlie', 2, 'Corriendo'),
-('Delta', 1, 'Error'),
-('Delta', 2, 'Error'),
-('Echo', 1, 'Corriendo'),
-('Echo', 2, 'Finalizado');
+insert into casos_de_prueba (caso)
+values ('A'),('B'),('C');
 
-select flujo,
-case EXCEPT 
-when count(distinct estado) = 1 then max(estado)
-when sum(estado = error) > 0
-and (sum(estado = finalizado) > 0 or sum(estado = corriendo) > 0 then indeterminado
-when (sum(estado = finalizado) > 0 and sum(estado = corriendo) > 0 then corriendo
-else indeterminado
-and as estado 
-from procesos
-group by flujo;
+WITH recursive permutacion (perm, restantes) as (
+select
+caso as perm,
+replace(
+(select GROUP_CONCAT(caso order by caso separator ',')
+from casos_de_prueba),
+caso,
+) as restantes
+from casos_de_prueba
+union all 
+select
+concat_ws(',',p.perm, c.caso) as perm,
+replace(p.restantes, c.caso, '')as restantes
+from permutaciones p
+join casos_de_prueba c
+on locate(c,caso,p.restantes) > 0
+)
+select perm as permutacion
+from permutacion
+where length(replace(perm, ',','')) = (
+select sum(length(caso))
+from casos_de_prueba
+) order by perm;
